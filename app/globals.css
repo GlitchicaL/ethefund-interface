@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --background-color: #AAF1CF;
+  --primary-text-color: #2F4858;
+
+  --clr-mint: #AAF1CF;
+  --clr-bluewood: #2F4858;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,13 +23,12 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--primary-text-color);
+  background: var(--background-color);
+}
+
+a {
+  border-bottom: 2px solid var(--clr-bluewood);
 }
 
 @layer utilities {
