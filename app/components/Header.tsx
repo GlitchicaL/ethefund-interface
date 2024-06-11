@@ -15,7 +15,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className='col-span-full flex justify-between items-center py-6'>
+    <header className='col-span-full min-h-[8dvh] flex justify-between items-center'>
       <p className={`${kavoon.className} text-xl`}>Ethefund</p>
 
       <nav className='hidden md:block'>

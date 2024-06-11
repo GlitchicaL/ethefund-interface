@@ -27,7 +27,7 @@ body {
   background: var(--background-color);
 }
 
-a {
+header a {
   border-bottom: 2px solid var(--clr-bluewood);
 }
 
