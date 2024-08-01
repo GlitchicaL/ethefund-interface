@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <footer className='col-span-full min-h-[8dvh] border-t-2 border-bluewood-300 pt-6'>
       <div className='flex justify-between mb-12'>
-        <div className="min-w-32">
+        <div className='min-w-32'>
           <p className='text-xl font-bold'>Governance</p>
           <ul>
             <li className='my-4'><a href="#">Proposals</a></li>
@@ -18,7 +18,7 @@ export default function Header() {
           </ul>
         </div>
 
-        <div className="min-w-32">
+        <div className='min-w-32'>
           <p className='text-xl font-bold'>Developers</p>
           <ul>
             <li className='my-4'><a href="#">Documentation</a></li>
@@ -27,7 +27,7 @@ export default function Header() {
           </ul>
         </div>
 
-        <div className="min-w-32">
+        <div className='min-w-32'>
           <p className='text-xl font-bold'>Team</p>
           <ul>
             <li className='my-4'><a href="#">About</a></li>
