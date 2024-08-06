@@ -20,7 +20,7 @@ export default function Header() {
 
       <nav className='hidden md:block'>
         <ul className='flex'>
-          <li className='mx-2'><a href="" className='p-1'>Proposals</a></li>
+          <li className='mx-2'><a href="/proposals" className='p-1'>Proposals</a></li>
           <li className='mx-2'><a href="" className='p-1'>Partcipate</a></li>
           <li className='mx-2'><a href="" className='p-1'>Analytics</a></li>
         </ul>

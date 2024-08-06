@@ -7,7 +7,7 @@ import youtube from "../assets/youtube.svg";
 
 export default function Header() {
   return (
-    <footer className='col-span-full min-h-[8dvh] border-t-2 border-bluewood-300 pt-6'>
+    <footer className='col-span-full min-h-[8dvh] pt-6'>
       <div className='flex justify-between mb-12'>
         <div className='min-w-32'>
           <p className='text-xl font-bold'>Governance</p>
