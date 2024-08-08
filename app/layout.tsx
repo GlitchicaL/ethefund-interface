@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { koho } from './fonts'
 import "./globals.css";
 
+import { AppKit } from '../context/web3modal';
+
 // Components
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -19,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${koho.className} container relative max-w-screen-lg mx-auto grid grid-cols-12 auto-rows-min px-12`}>
-        <Header />
+        <AppKit>
+          <Header />
 
-        {children}
+          {children}
 
-        <Footer />
+          <Footer />
+        </AppKit>
       </body>
     </html>
   );
