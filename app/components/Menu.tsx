@@ -11,7 +11,7 @@ export default function Menu() {
       <nav className='flex justify-center items-center my-4'>
         <ul className='flex flex-col justify-center items-center'>
           <li className='my-3 text-xl hover:text-mint-300 transition-all'><a href="" className='p-1'>Proposals</a></li>
-          <li className='my-3 text-xl hover:text-mint-300 transition-all'><a href="" className='p-1'>Partcipate</a></li>
+          <li className='my-3 text-xl hover:text-mint-300 transition-all'><a href="" className='p-1'>Participate</a></li>
           <li className='my-3 text-xl hover:text-mint-300 transition-all'><a href="" className='p-1'>Analytics</a></li>
         </ul>
       </nav>

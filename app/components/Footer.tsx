@@ -12,8 +12,8 @@ export default function Header() {
         <div className='min-w-32'>
           <p className='text-xl font-bold'>Governance</p>
           <ul>
-            <li className='my-4'><a href="#">Proposals</a></li>
-            <li className='my-4'><a href="#">Partcipate</a></li>
+            <li className='my-4'><a href="/proposals">Proposals</a></li>
+            <li className='my-4'><a href="/participate">Participate</a></li>
             <li className='my-4'><a href="#">Analytics</a></li>
           </ul>
         </div>
