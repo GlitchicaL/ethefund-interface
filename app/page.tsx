@@ -1,7 +1,8 @@
+import Header from './components/Header'
+
 export default function Home() {
   return (
     <main className="col-span-full mx-auto grid grid-cols-12 auto-rows-min">
-
       <div className="col-span-full min-h-[84dvh] grid grid-cols-12">
         <div className='col-span-full md:col-span-6'>
           <h1 className='text-3xl font-bold my-6'>Welcome to Ethefund</h1>

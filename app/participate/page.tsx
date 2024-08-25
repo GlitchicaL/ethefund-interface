@@ -19,10 +19,14 @@ export default function Page() {
   const [balance, setBalance] = useState("0");
 
   const getBalance = async () => {
-    const ethersProvider = new BrowserProvider(walletProvider);
-    const etheRepContract = new Contract(ETHEREP, ETHEREP_ABI, ethersProvider);
-    const balance = await etheRepContract.balanceOf(address);
-    setBalance(formatUnits(balance, 18));
+    try {
+      const ethersProvider = new BrowserProvider(walletProvider);
+      const etheRepContract = new Contract(ETHEREP, ETHEREP_ABI, ethersProvider);
+      const balance = await etheRepContract.balanceOf(address);
+      setBalance(formatUnits(balance, 18));
+    } catch (error) {
+      return;
+    }
   }
 
   const transferHandler = async (formData: FormData) => {

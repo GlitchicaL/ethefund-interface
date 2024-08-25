@@ -8,6 +8,7 @@ import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 
 // Components
 import Menu from './Menu';
+import Link from './links/Link';
 
 // Assets
 import hamburger from '../assets/hamburger.svg';
@@ -24,9 +25,9 @@ export default function Header() {
 
       <nav className='hidden md:block'>
         <ul className='flex'>
-          <li className='mx-2'><a href="/proposals" className='p-1'>Proposals</a></li>
-          <li className='mx-2'><a href="/participate" className='p-1'>Participate</a></li>
-          <li className='mx-2'><a href="" className='p-1'>Analytics</a></li>
+          <li className='mx-2'><Link text={"Proposals"} link={"/proposals"} /></li>
+          <li className='mx-2'><Link text={"Participate"} link={"/participate"} /></li>
+          <li className='mx-2'><Link text={"Analytics"} link={"/analytics"} /></li>
         </ul>
       </nav>
 
