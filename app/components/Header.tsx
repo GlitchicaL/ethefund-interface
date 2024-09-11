@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from "next/image";
 import { kavoon } from '../fonts';
 
@@ -16,8 +16,8 @@ import close from '../assets/close.svg';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { address, isConnected } = useWeb3ModalAccount();
   const { open } = useWeb3Modal();
-  const { address, isConnected } = useWeb3ModalAccount()
 
   return (
     <header className='col-span-full min-h-[8dvh] flex justify-between items-center'>

@@ -17,7 +17,3 @@ Ethefund is a grant DAO on Ethereum focused on supporting various projects. The 
 
 3. Start app
 `npm run dev`
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

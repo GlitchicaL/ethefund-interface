@@ -4,6 +4,7 @@
 'use client';
 
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
+import { siweConfig } from './siwe';
 
 // 1. Get projectId from https://cloud.walletconnect.com
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "";
@@ -14,7 +15,7 @@ const localhost = {
   name: 'Ethereum',
   currency: 'ETH',
   explorerUrl: 'https://etherscan.io',
-  rpcUrl: '127.0.0.1:8545'
+  rpcUrl: 'http://127.0.0.1:8545'
 }
 
 const mainnet = {
@@ -51,9 +52,10 @@ createWeb3Modal({
   ethersConfig,
   chains: [localhost, mainnet],
   projectId,
-  enableAnalytics: true // Optional - defaults to your Cloud configuration
+  enableAnalytics: true,
+  siweConfig
 });
 
-export function AppKit({ children }) {
+export function AppKit({ children }: any) {
   return children
 }
