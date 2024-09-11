@@ -1,8 +1,3 @@
-
-
-// Components
-import ProposalCard from "../../components/cards/ProposalCard";
-
 export default function Page() {
   const description = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo quam debitis officiis quasi ipsa."
 

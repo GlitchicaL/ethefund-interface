@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+// Components
+import Link from "./links/Link";
+
 // Assets
 import twitter from "../assets/twitter.svg";
 import discord from "../assets/discord.svg";
@@ -12,27 +15,27 @@ export default function Header() {
         <div className='min-w-32'>
           <p className='text-xl font-bold'>Governance</p>
           <ul>
-            <li className='my-4'><a href="/proposals">Proposals</a></li>
-            <li className='my-4'><a href="/participate">Participate</a></li>
-            <li className='my-4'><a href="#">Analytics</a></li>
+            <li className='my-4'><Link text="Proposals" link="/proposals" /></li>
+            <li className='my-4'><Link text="Participate" link="/participate" /></li>
+            <li className='my-4'><Link text="Analytics" link="#" /></li>
           </ul>
         </div>
 
         <div className='min-w-32'>
           <p className='text-xl font-bold'>Developers</p>
           <ul>
-            <li className='my-4'><a href="#">Documentation</a></li>
-            <li className='my-4'><a href="#">GitHub</a></li>
-            <li className='my-4'><a href="#">Security</a></li>
+            <li className='my-4'><Link text="Documentation" link="#" /></li>
+            <li className='my-4'><Link text="GitHub" link="#" /></li>
+            <li className='my-4'><Link text="Security" link="#" /></li>
           </ul>
         </div>
 
         <div className='min-w-32'>
           <p className='text-xl font-bold'>Team</p>
           <ul>
-            <li className='my-4'><a href="#">About</a></li>
-            <li className='my-4'><a href="#">Blog</a></li>
-            <li className='my-4'><a href="#">Careers</a></li>
+            <li className='my-4'><Link text="About" link="#" /></li>
+            <li className='my-4'><Link text="Blog" link="#" /></li>
+            <li className='my-4'><Link text="Careers" link="#" /></li>
           </ul>
         </div>
       </div>
@@ -48,6 +51,6 @@ export default function Header() {
           <li className='ml-3'><a href="#"><Image src={youtube} alt="YouTube" /></a></li>
         </ul>
       </div>
-    </footer>
+    </footer >
   );
 }

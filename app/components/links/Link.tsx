@@ -1,3 +1,5 @@
+import NextLink from "next/link";
+
 interface LinkProps {
   text: string;
   link: string;
@@ -6,8 +8,8 @@ interface LinkProps {
 
 export default function Link({ text, link, box = false }: LinkProps) {
   return (
-    <a href={link} className={`p-1 text-center ${box && "block bg-bluewood-300 text-white font-bold w-32 my-2 border-2 border-bluewood-300 rounded hover:bg-mint-300 hover:text-bluewood-300 transition-all"}`}>
+    <NextLink href={link} className={`p-1 text-center ${box && "block bg-bluewood-300 text-white font-bold w-32 my-2 border-2 border-bluewood-300 rounded hover:bg-mint-300 hover:text-bluewood-300 transition-all"}`}>
       {text}
-    </a>
+    </NextLink>
   );
 }

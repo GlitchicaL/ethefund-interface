@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // Components
 import ProposalBadge from "../badge/ProposalBadge";
 
@@ -10,7 +12,7 @@ interface ProposalCardProps {
 
 export default function ProposalCard({ id, name, description, status }: ProposalCardProps) {
   return (
-    <a href={`/proposals/${id}`} className="w-full min-h-24 flex justify-between border-b-2 border-bluewood-300 p-4 cursor-pointer hover:bg-mint-300">
+    <Link href={`/proposals/${id}`} className="w-full min-h-24 flex justify-between border-b-2 border-bluewood-300 p-4 cursor-pointer hover:bg-mint-300">
       <div className="content-center">
         <h3 className="text-md font-bold">{name}</h3>
         <p className="text-md">
@@ -19,6 +21,6 @@ export default function ProposalCard({ id, name, description, status }: Proposal
       </div>
 
       <ProposalBadge status={status} />
-    </a>
+    </Link>
   );
 }
