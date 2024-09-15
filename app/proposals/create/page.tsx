@@ -1,5 +1,27 @@
+"use client";
+
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract, formatUnits } from 'ethers';
+
 export default function Page() {
-  const description = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo quam debitis officiis quasi ipsa."
+  const { address, chainId, isConnected } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
+
+  const createHandler = async () => {
+    if (!isConnected) throw Error('User disconnected'); // TODO: Handle this better
+
+    // Setup provider and get signer
+    const ethersProvider = new BrowserProvider(walletProvider);
+    const signer = await ethersProvider.getSigner();
+
+    // Basic test
+    const response = await fetch(`/api/contracts?chainId=${chainId}`);
+    const data = await response.json();
+    console.log(data);
+
+    const etheREP = new Contract(data.etheREP.address, data.etheREP.abi, ethersProvider);
+    console.log(await etheREP.balanceOf(signer.address));
+  }
 
   return (
     <div className="col-span-full grid grid-cols-12">
@@ -12,7 +34,7 @@ export default function Page() {
       </div>
 
       <div className="col-span-full md:col-span-8 row-start-2 my-4">
-        <form action="" className="grid gap-4">
+        <form action={createHandler} className="grid gap-4">
           <label htmlFor="">Name of Proposal</label>
           <input type="text" placeholder="Name of Proposal" className="p-2" />
 
