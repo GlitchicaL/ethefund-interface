@@ -1,4 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
+import EtheREP from '@/app/artifacts/EtheREP.json';
+import EtheTimelock from '@/app/artifacts/EtheTimelock.json';
+import EtheGovernor from '@/app/artifacts/EtheGovernor.json';
 
 class Contract {
   address: string;
@@ -11,17 +14,9 @@ class Contract {
 }
 
 export async function GET(request: NextRequest) {
-  const ETHEREP_ABI = [
-    "function balanceOf(address) view returns (uint)",
-  ];
-
-  const ETHETIMELOCK_ABI = [
-    ""
-  ];
-
-  const ETHEGOVERNOR_ABI = [
-    ""
-  ];
+  const ETHEREP_ABI = EtheREP;
+  const ETHETIMELOCK_ABI = EtheTimelock;
+  const ETHEGOVERNOR_ABI = EtheGovernor;
 
   const chainId = request.nextUrl.searchParams.get('chainId');
 

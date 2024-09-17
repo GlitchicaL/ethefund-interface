@@ -36,7 +36,7 @@ export default function Header() {
         <button onClick={() => open()} className="bg-bluewood-300 text-white font-bold w-32 border-2 border-bluewood-300 rounded p-2 hover:bg-mint-300 hover:text-bluewood-300 transition-all">
           {isConnected ? (
             <>
-              {`${address.slice(0, 5)}...${address.slice(38)}`}
+              {`${address?.slice(0, 5)}...${address?.slice(38)}`}
             </>
           ) : (
             <>

@@ -7,50 +7,65 @@ import { BrowserProvider, Contract, parseUnits, formatUnits } from 'ethers'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 
 // Import Contracts
-import { ETHEREP } from '../utils/addresses';
-import { ETHEREP_ABI } from '../utils/abis';
 import { useEffect, useState } from 'react';
 
 export default function Page() {
+  const [status, setStatus] = useState({ message: "", code: 0 });
   const { pending } = useFormStatus();
-  const { address, isConnected } = useWeb3ModalAccount()
+
+  const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider();
 
   const [balance, setBalance] = useState("0");
 
   const getBalance = async () => {
     try {
+      const response = await fetch(`/api/contracts?chainId=${chainId}`);
+      const data = await response.json();
+
       const ethersProvider = new BrowserProvider(walletProvider);
-      const etheRepContract = new Contract(ETHEREP, ETHEREP_ABI, ethersProvider);
-      const balance = await etheRepContract.balanceOf(address);
+      const etheREP = new Contract(data.etheREP.address, data.etheREP.abi, ethersProvider);
+      const balance = await etheREP.balanceOf(address);
       setBalance(formatUnits(balance, 18));
-    } catch (error) {
-      return;
+    } catch (error: any) {
+      setStatus({
+        message: "An unknown error occurred",
+        code: -1
+      });
     }
   }
 
   const transferHandler = async (formData: FormData) => {
-    const recipient = formData.get('recipient')?.toString() || "";
-    const amount = formData.get('amount')?.toString() || "";
-
     try {
-      // TODO: Error handle this!
-      // Make sure form fields are valid
-      if (amount === "") return;
-      if (recipient.length != 42) return;
+      // Verify user inputs first before any API requests
+      const recipient = formData.get('recipient')?.toString() || "";
+      const amount = formData.get('amount')?.toString() || "";
+
+      if (recipient.length != 42) throw new Error("Invalid recipient");
 
       // Get provider & signer
+      const response = await fetch(`/api/contracts?chainId=${chainId}`);
+      const data = await response.json();
+
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
       // Setup contract & perform transaction
-      const etheRepContract = new Contract(ETHEREP, ETHEREP_ABI, signer);
-      await (await etheRepContract.transfer(recipient, parseUnits(amount, 18))).wait();
+      const etheREP = new Contract(data.etheREP.address, data.etheREP.abi, ethersProvider);
+      await (await etheREP.connect(signer).transfer(recipient, parseUnits(amount, 18))).wait();
 
       // Fetch and update balance
       await getBalance();
-    } catch (error) {
-      return; // TODO: Error handle this!
+
+      setStatus({
+        message: "Transaction successful",
+        code: 0
+      });
+    } catch (error: any) {
+      setStatus({
+        message: error.message,
+        code: -1
+      });
     }
   }
 
