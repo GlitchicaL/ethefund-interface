@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { BrowserProvider, Contract, parseUnits } from 'ethers';
+import { BrowserProvider, Contract, parseUnits, keccak256 } from 'ethers';
 
 export default function Page() {
   const [status, setStatus] = useState({ message: "", code: 0 });
@@ -20,8 +20,8 @@ export default function Page() {
       const target = formData.get("target")?.toString() || "";
       const value = formData.get("value")?.toString() || "";
 
-      if (name.length < 10) throw new Error("Name too short");
-      if (description.length < 10) throw new Error("Description too short");
+      if (name.length < 6) throw new Error("Name too short");
+      if (description.length < 12) throw new Error("Description too short");
       if (target.length != 42) throw new Error("Invalid target");
       if (!isConnected) throw new Error('User not signed in');
 
@@ -46,6 +46,32 @@ export default function Page() {
 
       // Wait for it to finish
       await transaction.wait();
+
+      // Determine the ID of the proposal
+      const id = await etheGovernor.hashProposal(
+        [target],
+        [parseUnits(value, 18)],
+        ["0x"],
+        keccak256(new TextEncoder().encode(description))
+      );
+
+      // Submit proposal details
+      await fetch(`/api/proposals`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id.toString(),
+          proposer: signer.address,
+          transaction: transaction.hash,
+          chainId,
+          name,
+          description,
+          target,
+          value
+        })
+      });
 
       // Update status
       setStatus({
