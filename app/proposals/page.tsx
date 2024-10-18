@@ -13,16 +13,18 @@ interface Proposal {
   description: string,
   target: string,
   value: number,
+  state: number,
 }
 
 export default async function Page() {
   // Fetch proposals
-  const response = await fetch(`http://localhost:3000/api/proposals`, {
-    method: "GET"
+  const response = await fetch(`http://localhost:3000/api/proposals?amount=5`, {
+    method: "GET",
+    next: { revalidate: 180 }
   });
 
   // Destructure response
-  const { proposals } = await response.json();
+  const { augmentedProposals: proposals } = await response.json();
 
   return (
     <div className="col-span-full grid grid-cols-12 my-4">
@@ -44,7 +46,7 @@ export default async function Page() {
         <hr className="border-b-1 border-bluewood-300" />
         <div className="flex flex-wrap">
           {proposals.length > 0 ? proposals.map((proposal: Proposal, index: number) => (
-            <ProposalCard key={index} id={1} name={proposal.name} description={proposal.description} status={0} />
+            <ProposalCard key={index} id={proposal.id} name={proposal.name} description={proposal.description} state={proposal.state} />
           )) : (
             <p className="w-full p-4">
               No Proposals to show.

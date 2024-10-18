@@ -7,21 +7,16 @@ interface PageParams {
   }
 }
 
-async function getProposal() {
-  // Fetch the proposal
-  // Temporary placeholder to represent a proposal
-  const proposal = {
-    id: 1,
-    name: "Ethefund Token",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo quam debitis officiis quasi ipsa.",
-    status: 0
-  };
-
-  return proposal;
-}
-
 export default async function Page({ params }: PageParams) {
-  const { status } = await getProposal();
+  // Fetch proposals
+  const response = await fetch(`http://localhost:3000/api/proposals/${params.id}`, {
+    method: "GET",
+    cache: 'no-cache',
+    next: { revalidate: 0 },
+  });
+
+  // Destructure response
+  const { proposal } = await response.json();
 
   // Note: In the future, we'll need timestamp of the start of the proposal voting period,
   // subtract that from the current time to get the difference in seconds, then determine how
@@ -35,12 +30,12 @@ export default async function Page({ params }: PageParams) {
       <div className="col-span-full">
         <div className="flex justify-between">
           <div className="flex">
-            <ProposalBadge status={status} />
+            <ProposalBadge state={0} />
             <p className="content-center text-xs font-bold mx-2">{Math.round(difference / seconds)} hours until voting</p>
           </div>
 
           <div className="content-center">
-            <p className="border-2 border-bluewood-300 rounded p-4">0x582v...0p1A</p>
+            <p className="border-2 border-bluewood-300 rounded p-4">{`${proposal.proposer.slice(0, 6)}...${proposal.proposer.slice(36, -1)}`}</p>
           </div>
         </div>
       </div>
@@ -62,20 +57,13 @@ export default async function Page({ params }: PageParams) {
         <div>
           <h3 className="text-md font-bold my-4">Summary</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consectetur distinctio facere corporis hic vitae fugit veritatis
-            laborum pariatur earum.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consectetur distinctio facere corporis hic vitae fugit veritatis
-            laborum pariatur earum.
+            {proposal.description}
           </p>
         </div>
         <div>
           <h3 className="text-md font-bold my-4">Actions</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consectetur distinctio facere corporis hic vitae fugit veritatis
-            laborum pariatur earum.
+            Send {proposal.value} ETH to {proposal.target}.
           </p>
         </div>
       </div>

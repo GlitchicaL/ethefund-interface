@@ -26,15 +26,15 @@ export default function Page() {
       if (!isConnected) throw new Error('User not signed in');
 
       // Fetch contract addresses and ABIs
-      const response = await fetch(`/api/contracts?chainId=${chainId}`);
-      const data = await response.json();
+      const contractResponse = await fetch(`/api/contracts?chainId=${chainId}`);
+      const contracts = await contractResponse.json();
 
       // Setup provider and get signer
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
       // Setup contract
-      const etheGovernor = new Contract(data.etheGovernor.address, data.etheGovernor.abi, ethersProvider);
+      const etheGovernor = new Contract(contracts.etheGovernor.address, contracts.etheGovernor.abi, ethersProvider);
 
       // Create transaction
       const transaction = await etheGovernor.connect(signer).propose(
@@ -56,7 +56,7 @@ export default function Page() {
       );
 
       // Submit proposal details
-      await fetch(`/api/proposals`, {
+      const proposalResponse = await fetch(`/api/proposals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -73,11 +73,9 @@ export default function Page() {
         })
       });
 
-      // Update status
-      setStatus({
-        message: "Transaction Successful",
-        code: 0
-      });
+      if (proposalResponse.ok) {
+        window.location.href = proposalResponse.url;
+      }
     } catch (error: any) {
       setStatus({
         message: error.message,

@@ -7,10 +7,10 @@ interface ProposalCardProps {
   id: number;
   name: string;
   description: string;
-  status: number;
+  state: number;
 }
 
-export default function ProposalCard({ id, name, description, status }: ProposalCardProps) {
+export default function ProposalCard({ id, name, description, state }: ProposalCardProps) {
   return (
     <Link href={`/proposals/${id}`} className="w-full min-h-24 flex justify-between border-b-2 border-bluewood-300 p-4 cursor-pointer hover:bg-mint-300">
       <div className="content-center">
@@ -20,7 +20,7 @@ export default function ProposalCard({ id, name, description, status }: Proposal
         </p>
       </div>
 
-      <ProposalBadge status={status} />
+      <ProposalBadge state={state} />
     </Link>
   );
 }
