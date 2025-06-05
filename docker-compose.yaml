@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build:
+      args:
+        - NODE_ENV=development
+      context: .
+    container_name: ethefund-interface
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
+    command: npm run dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules # Avoid overwriting node_modules with host's version
+  database:
+    image: postgres
+    container_name: ethefund-database
+    restart: always
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    ports:
+      - 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
